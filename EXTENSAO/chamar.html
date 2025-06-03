@@ -1,0 +1,115 @@
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chamar Garçom</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                padding: 40px;
+                background: linear-gradient(to bottom, #9b59b6, #8e44ad);
+                color: white;
+            }
+
+            h1 {
+                font-size: 32px;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 16px;
+                margin: 10px auto;
+                max-width: 300px;
+            }
+
+            label {
+                font-size: 20px;
+                display: block;
+                margin-top: 20px;
+            }
+
+            input[type="number"] {
+                font-size: 24px;
+                padding: 10px;
+                margin-top: 10px;
+                width: 120px;
+                border: none;
+                border-radius: 10px;
+                text-align: center;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+
+            button {
+                background-color: #7bed9f;
+                color: black;
+                font-size: 22px;
+                font-weight: bold;
+                padding: 15px 30px;
+                border: none;
+                border-radius: 10px;
+                margin-top: 30px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            button:hover {
+                background-color: #2ed573;
+            }
+
+            #mensagem {
+                margin-top: 20px;
+                font-size: 18px;
+            }
+        </style>
+
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    </head>
+
+    <body>
+        <h2>CHAMAR GARÇOM</h2>
+        <p>Digite o número da sua mesa:</p>
+
+        <input type="number" id="numeroMesa" placeholder="Ex: 5" min="1" max="99" />
+        <br>
+        <button onclick="chamarGarcom()">Chamar</button>
+
+        <p id="mensagem"></p>
+
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyAd6lyUihMOcXuwa_BMf859iQE9uCmP_ag",
+                authDomain: "extensao-c74de.firebaseapp.com",
+                databaseURL: "https://extensao-c74de-default-rtdb.firebaseio.com",
+                projectId: "extensao-c74de",
+                storageBucket: "extensao-c74de.appspot.com",
+                messagingSenderId: "1046201466680",
+                appId: "1:1046201466680:web:ce8d912b30aa7fe55b4bcd"
+            };
+
+            // Inicializa Firebase
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.database();
+
+            function chamarGarcom() {
+                const numero = parseInt(document.getElementById('numeroMesa').value);
+                const mensagem = document.getElementById('mensagem');
+
+                if (!numero || numero < 1 || numero > 99) {
+                    mensagem.innerText = "Número de mesa inválido.";
+                    mensagem.style.color = "red";
+                    return;
+                }
+
+                db.ref('mesas/' + numero).set('atender');
+                mensagem.innerText = `Garçom chamado para a mesa ${numero.toString().padStart(2, '0')}`;
+                mensagem.style.color = "green";
+            }
+        </script>
+    </body>
+
+    </html>

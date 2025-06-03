@@ -1,0 +1,98 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    overflow-x: hidden;
+}
+
+#great{
+    font-size: 2.5rem;
+    text-align: center;
+    word-wrap: break-word;
+    flex-wrap: wrap;
+}
+
+div > p{
+    font-size: 5rem;
+    padding: 0;
+    margin: 0;
+}
+
+@media (min-width: 280px) and (max-width: 767px){
+    #great{
+        font-size: 2rem;
+    }
+
+    div > p{
+        font-size: 2rem;
+    }
+
+    .mesas{
+        width: 6rem;
+        width: auto;
+    }
+
+    .bloco_mesas{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px){
+    #great{
+        font-size: 5rem;
+    }
+
+    div > p{
+        font-size: 4rem;
+    }
+
+    .mesas{
+        width: 8rem;
+        height: 6rem;
+    }
+
+    .bloco_mesas{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px){
+    #great{
+        font-size: 5rem;
+    }
+
+    div > p{
+        font-size: 4rem;
+    }
+
+    .mesas{
+        width: 10rem;
+    }
+
+    .bloco_mesas{
+        display: grid;
+        grid-template-columns: repeat(5, 0.1fr);
+    }
+}
+
+#paragraph{
+    color: white;
+}
+
+.mesas{
+    background-color: red;
+    margin: 20px;
+    
+    text-align: center;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}

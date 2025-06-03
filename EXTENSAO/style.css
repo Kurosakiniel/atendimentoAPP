@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+.mesas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 15px;
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.mesa {
+    font-size: 24px;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.atender {
+    background-color: #f44336;
+}
+
+/* vermelho */
+.atendido {
+    background-color: #4caf50;
+}
+
+/* verde */
+.desocupado {
+    background-color: #ffeb3b;
+    color: black;
+}
+
+/* amarelo */
