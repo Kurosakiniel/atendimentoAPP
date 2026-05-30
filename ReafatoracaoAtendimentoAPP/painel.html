@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Garçom</title>
+    <style>
+        /* Mantenha os estilos que você já usava para as classes .mesa, .atender, .atendido, etc. */
+        #mesas-container { display: flex; flex-wrap: wrap; gap: 15px; padding: 20px; }
+        .mesa { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 8px; cursor: pointer; color: white;}
+        .desocupado { background-color: #2ed573; }
+        .atender { background-color: #ff4757; animation: blink 1s infinite; }
+        .atendido { background-color: #ffa500; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
+<body>
+
+    <h2>Painel de Monitoramento de Mesas</h2>
+    <div id="mesas-container"></div>
+
+    <script type="module">
+        import { bancoDeDados } from './backend/DatabaseAdapter.js';
+        import { MesaFactory } from './components/MesaFactory.js';
+
+        const container = document.getElementById('mesas-container');
+        const totalMesas = 10;
+
+        function atualizarTela(dados) {
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= totalMesas; i++) {
+                const statusTexto = dados[i] || 'desocupado';
+                
+                // Usando a Factory (Criacional)
+                const mesaComponente = MesaFactory.criarMesa(i, statusTexto);
+                
+                // Renderizando na tela
+                container.appendChild(mesaComponente.renderizar());
+            }
+        }
+
+        // Usando o Adapter (Estrutural)
+        bancoDeDados.escutarMesas(atualizarTela);
+    </script>
+</body>
+</html>

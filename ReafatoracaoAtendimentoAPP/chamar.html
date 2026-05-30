@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chamar Garçom</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: linear-gradient(to bottom, #9b59b6, #8e44ad); color: white; }
+        input[type="number"] { font-size: 24px; padding: 10px; margin-top: 10px; width: 120px; text-align: center; border-radius: 10px; border: none;}
+        button { background-color: #7bed9f; color: black; font-size: 22px; font-weight: bold; padding: 15px 30px; border: none; border-radius: 10px; margin-top: 30px; cursor: pointer; }
+        button:hover { background-color: #2ed573; }
+        #mensagem { margin-top: 20px; font-size: 18px; }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
+<body>
+    <h2>CHAMAR GARÇOM</h2>
+    <p>Digite o número da sua mesa:</p>
+
+    <input type="number" id="numeroMesa" placeholder="Ex: 5" min="1" max="99" />
+    <br>
+    <button id="btnChamar">Chamar</button>
+
+    <p id="mensagem"></p>
+
+    <script type="module">
+        import { bancoDeDados } from './backend/DatabaseAdapter.js';
+
+        document.getElementById('btnChamar').addEventListener('click', () => {
+            const numero = parseInt(document.getElementById('numeroMesa').value);
+            const mensagem = document.getElementById('mensagem');
+
+            if (!numero || numero < 1 || numero > 99) {
+                mensagem.innerText = "Número de mesa inválido.";
+                mensagem.style.color = "red";
+                return;
+            }
+
+            // Usando o Adapter (Estrutural)
+            bancoDeDados.atualizarStatusMesa(numero, 'atender');
+            
+            mensagem.innerText = `Garçom chamado para a mesa ${numero.toString().padStart(2, '0')}`;
+            mensagem.style.color = "green";
+        });
+    </script>
+</body>
+</html>
